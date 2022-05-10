@@ -1,0 +1,10 @@
+jupyter==1.0.0
+pandas==1.4.1
+seaborn==0.11.2
+matplotlib==3.5.1
+scikit-learn==1.0.2
+dython==0.7.1
+scipy==1.8.0
+joblib==1.1.0 
+flake8==4.0.1
+house-prices-gst==0.0.2
