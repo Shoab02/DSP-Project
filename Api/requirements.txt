@@ -3,4 +3,6 @@ uvicorn
 numpy
 pandas
 fastapi
+used-cars-gst==0.0.2
+fastapi
 python-multipart
