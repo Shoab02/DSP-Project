@@ -3,9 +3,6 @@ uvicorn
 numpy
 pandas
 fastapi
-<<<<<<< HEAD
 used-cars-gst==0.0.2
 fastapi
-=======
->>>>>>> f052ca9 (Restructured models folder)
 python-multipart
