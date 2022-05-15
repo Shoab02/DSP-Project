@@ -1,4 +1,3 @@
-import asyncio
 from request import tempPostRequest
 import streamlit as st
 import pandas as pd
