@@ -1,3 +1,5 @@
+import asyncio
+from request import tempPostRequest
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -51,11 +53,15 @@ def main():
     prediction_table = st.empty()
 
     if predict_button and selected_file is not None:
+        result =  tempPostRequest(selected_file)
         selected_file_display.empty()
         _array = car_price_predictor()
+        # TODO: un comment the blow line
+        # prediction_table.table(result)
         prediction_table.table(_array)
     if predict_button and selected_file is None:
         alert_message.warning('Please upload the file first')
+
 
 if __name__ == '__main__':
     main()
