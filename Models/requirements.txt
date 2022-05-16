@@ -7,4 +7,4 @@ dython==0.7.1
 scipy==1.8.0
 joblib==1.1.0 
 flake8==4.0.1
-used-cars-gst==0.0.3
+used-cars-gst==0.0.4
