@@ -151,7 +151,9 @@ def build_pipeline():
 
     pipe = Pipeline([
         ('preprocessor', preprocessor),
-        ('classifier', RandomForestRegressor())
+        ('classifier', RandomForestRegressor(
+            n_estimators=50, max_depth=10, max_features="sqrt"
+        ))
     ])
     return pipe
 
