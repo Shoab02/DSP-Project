@@ -2,7 +2,7 @@
 
 ## Installation
 
-Activate your environment
+Activate your environment with python 3.8
 
 Install airflow
 ```bash
@@ -13,25 +13,20 @@ pip install -r requirements.txt
 
 ## Initialization
 ```bash
+# Navigate to the prediction job directory
+cd Prediction-Job
+export AIRFLOW_HOME=`pwd`
 airflow db init
 # After running this command you will be asked to enter a password, 
 # you can use "admin" to keep it simple
 airflow users create --username admin --firstname admin --lastname admin --role Admin --email admin@admin.com
 ```
 
-## Setup environment
-Add our pipeline to the airflow main directory
-
-Copy the /dags file to ~/airflow 
-```bash
-cp -R ./dags ~/airflow
-```
-
 ## Start airflow
 
 ```bash
 airflow webserver --port 7000 --workers 1 -D
-airflow scheduler -S ./dags -D
+airflow scheduler -D
 ```
 
 ## View the UI
