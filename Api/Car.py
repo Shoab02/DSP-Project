@@ -23,3 +23,6 @@ class Car(BaseModel):
     nrOfPictures:int
     postalCode:float
     lastSeen:str
+
+    class Config:
+        orm_mode = True
