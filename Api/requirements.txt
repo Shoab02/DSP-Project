@@ -4,3 +4,4 @@ pandas==1.4.1
 fastapi==0.78.0
 used-cars-gst==0.0.4
 python-multipart==0.0.5
+SQLAlchemy==1.4.36
