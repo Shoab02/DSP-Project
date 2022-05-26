@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 
 class Car(BaseModel):
+    id:int
     dateCrawled:str
     name:str
     seller:str
@@ -23,6 +24,7 @@ class Car(BaseModel):
     nrOfPictures:int
     postalCode:float
     lastSeen:str
+    price:float
 
     class Config:
         orm_mode = True

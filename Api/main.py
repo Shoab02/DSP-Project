@@ -11,12 +11,12 @@ from used_cars.inference import make_predictions
 from fastapi import FastAPI, File, UploadFile, status
 from typing import Optional,List
 from Car import Car
-
+import db
 
 app = FastAPI(title='Car Price Prediction', version='1.0',
               description='')
 
-#db = SessionLocal()
+db = db.SessionLocal()
 
 @app.get('/')
 @app.get('/home')
@@ -33,11 +33,46 @@ def predict(csv_file:UploadFile):
     user_data_df = user_data_df.fillna("")
     f_df = user_data_df.join(pd.DataFrame(predictions,columns=['Price']))
     
+    add_to_db(f_df)
+
     return {"status":200,
             "message":"Successful",
             "results":f_df.values.tolist()}
 
-# When the feature values are received through a request
+
+def add_to_db(f_df):
+
+    for i in range(0,f_df.shape[0]-1):
+            new_car=db_model.Car(
+            id=i,
+            dateCrawled=f_df.iloc[i]['dateCrawled'],
+            name=f_df.iloc[i]['name'],
+            seller=f_df.iloc[i]['seller'],
+            offerType=f_df.iloc[i]['offerType'],
+            abtest=f_df.iloc[i]['abtest'],
+            vehicleType=f_df.iloc[i]['vehicleType'],
+            yearOfRegistration=int(f_df.iloc[i]['yearOfRegistration']),
+            gearbox=f_df.iloc[i]['gearbox'],
+            powerPS=int(f_df.iloc[i]['powerPS']),
+            model=f_df.iloc[i]['model'],
+            kilometer=float(f_df.iloc[i]['kilometer']),
+            monthOfRegistration=int(f_df.iloc[i]['monthOfRegistration']),
+            fuelType=f_df.iloc[i]['fuelType'],
+            brand=f_df.iloc[i]['brand'],
+            notRepairedDamage=f_df.iloc[i]['notRepairedDamage'],
+            dateCreated=f_df.iloc[i]['dateCreated'],
+            nrOfPictures=int(f_df.iloc[i]['nrOfPictures']),
+            postalCode=float(f_df.iloc[i]['postalCode']),
+            lastSeen=f_df.iloc[i]['lastSeen'],
+            price=float(f_df.iloc[i]['price'])
+            )
+
+            db.add(new_car)
+            db.commit()
+
+    
+
+# When the feature values are received as single values
 
 #@app.post("/predictSingle")
 #def predict(req:Car):
