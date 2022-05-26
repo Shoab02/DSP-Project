@@ -107,17 +107,15 @@ def add_to_db(f_df):
     
 #    return f_df.values.tolist()
 
+#To retrieve all the stored predictions
 
-@app.get('/predHistory',response_model=List[Car],status_code=200)
+@app.get('/predHistory',status_code=200)
 def get_all_preds():
     cars = db.query(db_model.Car).all()
 
-    return cars
-
-#@app.post('/predict')
-#def add_pred(userdf,car:Car):
-#    pass
-
+    return {"status":200,
+            "message":"Successful",
+            "results":cars}
     
 if __name__ == '__main__':
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
