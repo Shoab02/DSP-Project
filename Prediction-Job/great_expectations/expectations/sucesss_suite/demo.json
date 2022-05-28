@@ -1,0 +1,35 @@
+{
+  "data_asset_type": null,
+  "expectation_suite_name": "sucesss_suite.demo",
+  "expectations": [
+    {
+      "expectation_type": "expect_table_columns_to_match_ordered_list",
+      "kwargs": {
+        "column_list": [
+          "powerPS",
+          "vehicleType",
+          "brand",
+          "fuelType",
+          "kilometer"
+        ]
+      },
+      "meta": {}
+    }
+  ],
+  "ge_cloud_id": null,
+  "meta": {
+    "citations": [
+      {
+        "batch_request": {
+          "data_asset_name": "autos_2.csv",
+          "data_connector_name": "default_inferred_data_connector_name",
+          "datasource_name": "new_data_source",
+          "limit": 1000
+        },
+        "citation_date": "2022-05-27T12:43:22.735528Z",
+        "comment": "Created suite added via CLI"
+      }
+    ],
+    "great_expectations_version": "0.15.6"
+  }
+}

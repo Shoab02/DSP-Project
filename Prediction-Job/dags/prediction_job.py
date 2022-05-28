@@ -1,6 +1,5 @@
 import os
 import datetime
-import pendulum
 from pendulum import today
 import logging
 import requests
@@ -20,7 +19,7 @@ def make_predictions():
     )
     def send_files():
         cur_dr = os.path.dirname(os.path.realpath(__file__))
-        data_dir = os.path.join(cur_dr, 'data')
+        data_dir = os.path.join(cur_dr, 'data', 'cleaned_data')
         if not os.path.isdir(data_dir):
             raise FileExistsError
         files = [os.path.join(data_dir, f) for f in os.listdir(data_dir)]
