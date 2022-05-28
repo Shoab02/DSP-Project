@@ -1,46 +1,60 @@
-from http import HTTPStatus
-from telnetlib import STATUS
-import joblib
-import json
 import uvicorn
 import pandas as pd
-import numpy as np
-import db_model
-from pydantic import BaseModel
 from used_cars.inference import make_predictions
-from fastapi import FastAPI, File, UploadFile, status
-from typing import Optional,List
-from Car import Car
+from fastapi import FastAPI, Depends, UploadFile
+from sqlalchemy.orm import Session
+from dotenv import load_dotenv
+
+from database import SessionLocal, engine
+import db_models
+import crud
+
+load_dotenv('./.env')
+db_models.Base.metadata.create_all(bind=engine)
+
+app = FastAPI(
+    title='Car Price Prediction',
+    version='1.0',
+    description=''
+)
 
 
-app = FastAPI(title='Car Price Prediction', version='1.0',
-              description='')
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
-#db = SessionLocal()
 
 @app.get('/')
 @app.get('/home')
 def read_home():
     return {'message': 'Thank you for using our car price prediction app'}
 
-# When the feature values are received through a file
+# When the feature values are received through a file uploaded by the user,
+
 
 @app.post("/predict")
-def predict(csv_file:UploadFile):
-    user_data_df = pd.read_csv(csv_file.file,encoding='latin-1')
-    
+def predict(csv_file: UploadFile, db: Session = Depends(get_db)):
+    user_data_df = pd.read_csv(csv_file.file, encoding='latin-1')
+
     predictions = make_predictions(user_data_df)
     user_data_df = user_data_df.fillna("")
-    f_df = user_data_df.join(pd.DataFrame(predictions,columns=['Price']))
-    
-    return {"status":200,
-            "message":"Successful",
-            "results":f_df.values.tolist()}
+    f_df = user_data_df.join(pd.DataFrame(
+        predictions, columns=['predictedPrice']))
 
-# When the feature values are received through a request
+    crud.create_cars_predictions_with_dataframe(db, f_df)
 
-#@app.post("/predictSingle")
-#def predict(req:Car):
+    return {"status": 200,
+            "message": "Successful",
+            "results": f_df.values.tolist()}
+
+
+# When the feature values are received as single values
+
+# @app.post("/predictSingle")
+# def predict(req:Car):
 
 #    id= np.random.randint(100000)
 #    dateCrawled=req.dateCrawled,
@@ -63,26 +77,25 @@ def predict(csv_file:UploadFile):
 #    lastSeen=req.lastSeen
 
 #        values = list([id,dateCrawled,name,seller,offerType,abtest,vehicleType,yearOfRegistration,gearbox,powerPS,model,kilometer,monthOfRegistration,fuelType,brand,notRepairedDamage,dateCreated,nrOfPictures,postalCode,lastSeen
-#])
+# ])
 #    )
 
 #    predictions = make_predictions(user_data_df)
 #    user_data_df = user_data_df.fillna("")
 #    f_df = user_data_df.join(pd.DataFrame([predictions[0]],columns=['Price']))
-    
+
 #    return f_df.values.tolist()
 
 
-@app.get('/predHistory',response_model=List[Car],status_code=200)
-def get_all_preds():
-    cars = db.query(db_model.Car).all()
+# To retrieve all the stored predictions
+@app.get('/car_predictions', status_code=200)
+def get_all_preds(db: Session = Depends(get_db)):
+    cars = crud.get_car_predictions(db)
 
-    return cars
+    return {"status": 200,
+            "message": "Successful",
+            "results": cars}
 
-#@app.post('/predict')
-#def add_pred(userdf,car:Car):
-#    pass
 
-    
 if __name__ == '__main__':
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

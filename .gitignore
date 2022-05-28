@@ -6,11 +6,13 @@ __pycache__/
 # C extensions
 *.so
 
-# CSV Files
-*.csv
+# DS Store
+*.DS_Store
+.DS_Store
 
 # VS Code
 .vscode/
+.vs/
 
 # Distribution / packaging
 .Python
