@@ -38,7 +38,7 @@ dag = make_predictions()
 def send_file_to_api(f):
     logger = logging.getLogger("console")
     response = requests.post(
-        'https://epita-2022-dsp-api.herokuapp.com/',
+        'https://epita-2022-dsp-api.herokuapp.com/predict',
         files={'csv_file': open(f, 'rb')}
     )
     logger.info(f"{response.status_code}")
