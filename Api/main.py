@@ -28,15 +28,17 @@ def get_db():
     finally:
         db.close()
 
-class Car(BaseModel):
-    powerPS:int
-    vehicleType:str
-    brand:str
-    fuelType:str
-    kilometer:float
+#Used to test endpoint singlepredict
 
-    class Config:
-        orm_mode = True
+# class Car(BaseModel):
+#     powerPS:int
+#     vehicleType:str
+#     brand:str
+#     fuelType:str
+#     kilometer:float
+
+#     class Config:
+#         orm_mode = True
 
         
 @app.get('/')
