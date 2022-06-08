@@ -4,6 +4,8 @@ from used_cars.inference import make_predictions
 from fastapi import FastAPI, Depends, UploadFile
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
+from pydantic import BaseModel
+
 
 from database import SessionLocal, engine
 import db_models
@@ -26,7 +28,19 @@ def get_db():
     finally:
         db.close()
 
+#Used to test endpoint singlepredict
 
+# class Car(BaseModel):
+#     powerPS:int
+#     vehicleType:str
+#     brand:str
+#     fuelType:str
+#     kilometer:float
+
+#     class Config:
+#         orm_mode = True
+
+        
 @app.get('/')
 @app.get('/home')
 def read_home():
@@ -41,6 +55,7 @@ def predict(csv_file: UploadFile, db: Session = Depends(get_db)):
 
     predictions = make_predictions(user_data_df)
     user_data_df = user_data_df.fillna("")
+    predictions = [round(prediction) for prediction in predictions]
     f_df = user_data_df.join(pd.DataFrame(
         predictions, columns=['predictedPrice']))
 
@@ -53,38 +68,27 @@ def predict(csv_file: UploadFile, db: Session = Depends(get_db)):
 
 # When the feature values are received as single values
 
-# @app.post("/predictSingle")
-# def predict(req:Car):
+@app.post("/predictSingle")
+def predict(req:Car,db: Session = Depends(get_db)):
+    car_dict= {
+        "powerPS":req.powerPS,
+        "vehicleType":req.vehicleType,
+        "brand":req.brand,
+        "fuelType":req.fuelType,
+        "kilometer":req.kilometer
+        }
 
-#    id= np.random.randint(100000)
-#    dateCrawled=req.dateCrawled,
-#    name=req.name,
-#    offerType=req.offerType,
-#    abtest=req.abtest,
-#    vehicleType=req.vehicleType,
-#    yearOfRegistration=req.yearOfRegistration,
-#    gearbox=req.gearbox,
-#    powerPS=req.powerPS,
-#    model=req.model,
-#    kilometer=req.kilometer,
-#    monthOfRegistration=req.monthOfRegistration,
-#    fuelType=req.fuelType,
-#    brand=req.brand,
-#    notRepairedDamage=req.notRepairedDamage,
-#    dateCreated=req.dateCreated,
-#    nrOfPictures=req.nrOfPictures,
-#    postalCode=req.postalCode,
-#    lastSeen=req.lastSeen
+    single_df= pd.DataFrame(car_dict,index=[0])
 
-#        values = list([id,dateCrawled,name,seller,offerType,abtest,vehicleType,yearOfRegistration,gearbox,powerPS,model,kilometer,monthOfRegistration,fuelType,brand,notRepairedDamage,dateCreated,nrOfPictures,postalCode,lastSeen
-# ])
-#    )
+    predictions = make_predictions(single_df)
+    single_df = single_df.fillna("")
+    f_df = single_df.join(pd.DataFrame([round(predictions[0])],columns=['predictedPrice']))
 
-#    predictions = make_predictions(user_data_df)
-#    user_data_df = user_data_df.fillna("")
-#    f_df = user_data_df.join(pd.DataFrame([predictions[0]],columns=['Price']))
+    crud.create_cars_predictions_with_dataframe(db, f_df)
 
-#    return f_df.values.tolist()
+    return {"status": 200,
+            "message": "Successful",
+            "results": f_df.values.tolist()}
 
 
 # To retrieve all the stored predictions
