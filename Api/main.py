@@ -31,11 +31,11 @@ def get_db():
 #Used to test endpoint singlepredict
 
 class Car(BaseModel):
-    powerPS:int
+    powerPS:str
     vehicleType:str
     brand:str
     fuelType:str
-    kilometer:float
+    kilometer:str
 
     class Config:
         orm_mode = True
@@ -69,20 +69,25 @@ def predict(csv_file: UploadFile, db: Session = Depends(get_db)):
 # When the feature values are received as single values
 
 @app.post("/predictSingle")
-def predict(req:Car,db: Session = Depends(get_db)):
-    car_dict= {
-        "powerPS":req.powerPS,
-        "vehicleType":req.vehicleType,
-        "brand":req.brand,
-        "fuelType":req.fuelType,
-        "kilometer":req.kilometer
-        }
+def predict_signle(req: Car, db: Session = Depends(get_db)):
+    car_dict = {
+        "powerPS": float(req.powerPS),
+        "vehicleType": req.vehicleType,
+        "brand": req.brand,
+        "fuelType": req.fuelType,
+        "kilometer": float(req.kilometer)
+    }
 
-    single_df= pd.DataFrame(car_dict,index=[0])
+    single_df = pd.DataFrame(car_dict, index=[0])
 
     predictions = make_predictions(single_df)
     single_df = single_df.fillna("")
-    f_df = single_df.join(pd.DataFrame([round(predictions[0])],columns=['predictedPrice']))
+    f_df = single_df.join(
+        pd.DataFrame(
+            [round(predictions[0])],
+            columns=['predictedPrice']
+        )
+    )
 
     crud.create_cars_predictions_with_dataframe(db, f_df)
 
