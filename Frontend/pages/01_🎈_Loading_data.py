@@ -4,7 +4,7 @@ import numpy as np
 import json
 import csv
 from streamlit_option_menu import option_menu
-from request import tempPostRequest
+from request import tempPostRequest,postJsonRequest
 
 
 def upload_file():
@@ -31,11 +31,11 @@ def user_input():
     kilometer = st.number_input("Kms_Driven")
     data.append(kilometer)
 
-    df = pd.DataFrame([data], columns=['powerPS', 'vehicleType', 'brand', 'fuelType', 'kilometer'])
-    js = df.to_json()
-    # js = json.loads(js)
-    st.write(js)
-    return js
+    #df = pd.DataFrame([data], columns=['powerPS', 'vehicleType', 'brand', 'fuelType', 'kilometer'])
+    #js = df.to_list()
+    #js = json.loads(js)
+    #st.write(data)
+    return data
 
 
 def main():
@@ -70,11 +70,11 @@ def main():
         if predict_button and selected_file is None:
             alert_message.warning('Please upload the file first')
     elif selected == "Input_data":
-        Json = user_input()
+        output = user_input()
         result = 0
         if predict_button:
-            result = tempPostRequest(Json)
-        st.success('The output is {} lacks'.format(result))
+            result = postJsonRequest(output)
+            st.success('The prediction of car price is {}'.format(result[0][-1]))
 
 
 if __name__ == '__main__':
