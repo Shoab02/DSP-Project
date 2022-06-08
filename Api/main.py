@@ -69,7 +69,7 @@ def predict(csv_file: UploadFile, db: Session = Depends(get_db)):
 # When the feature values are received as single values
 
 @app.post("/predictSingle")
-def predict(req:Car,db: Session = Depends(get_db)):
+def predict(req,db: Session = Depends(get_db)):
     car_dict= {
         "powerPS":req.powerPS,
         "vehicleType":req.vehicleType,
