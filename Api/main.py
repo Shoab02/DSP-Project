@@ -28,19 +28,20 @@ def get_db():
     finally:
         db.close()
 
-#Used to test endpoint singlepredict
+# Used to test endpoint singlepredict
+
 
 class Car(BaseModel):
-    powerPS:str
-    vehicleType:str
-    brand:str
-    fuelType:str
-    kilometer:str
+    powerPS: str
+    vehicleType: str
+    brand: str
+    fuelType: str
+    kilometer: str
 
     class Config:
         orm_mode = True
 
-        
+
 @app.get('/')
 @app.get('/home')
 def read_home():
