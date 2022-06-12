@@ -1,0 +1,156 @@
+{
+    "data_asset_type": "Dataset",
+    "ge_cloud_id": null,
+    "meta": {
+        "great_expectations_version": "0.15.6"
+    },
+    "expectations": [
+        {
+            "kwargs": {
+            "column": "powerPS"
+            },
+            "meta": {},
+            "expectation_type": "expect_column_to_exist"
+        },
+        {
+            "kwargs": {
+            "column": "powerPS"
+            },
+            "meta": {},
+            "expectation_type": "expect_column_values_to_not_be_null"
+        },
+        {
+            "kwargs": {
+            "column": "powerPS",
+            "min_value": 0,
+            "max_value": 20000
+            },
+            "meta": {},
+            "expectation_type": "expect_column_max_to_be_between"
+        },
+        {
+            "kwargs": {
+            "column": "powerPS",
+            "min_value": 0,
+            "max_value": 20000
+            },
+            "meta": {},
+            "expectation_type": "expect_column_min_to_be_between"
+        },
+        {
+            "kwargs": {
+            "column": "powerPS",
+            "type_list": ["int", "float"]
+            },
+            "meta": {},
+            "expectation_type": "expect_column_values_to_be_in_type_list"
+        },
+        {
+            "kwargs": {
+            "column": "vehicleType"
+            },
+            "meta": {},
+            "expectation_type": "expect_column_to_exist"
+        },
+        {
+            "kwargs": {
+            "column": "vehicleType"
+            },
+            "meta": {},
+            "expectation_type": "expect_column_values_to_not_be_null"
+        },
+        {
+            "kwargs": {
+            "column": "vehicleType",
+            "value_set": ["coupe", "suv", "kleinwagen", "limousine", "cabrio", "bus", "kombi", "andere"]
+            },
+            "meta": {},
+            "expectation_type": "expect_column_distinct_values_to_be_in_set"
+        },
+        {
+            "kwargs": {
+            "column": "brand"
+            },
+            "meta": {},
+            "expectation_type": "expect_column_to_exist"
+        },
+        {
+            "kwargs": {
+            "column": "brand"
+            },
+            "meta": {},
+            "expectation_type": "expect_column_values_to_not_be_null"
+        },
+        {
+            "kwargs": {
+            "column": "brand",
+            "value_set": ["volkswagen", "audi", "jeep", "skoda", "bmw", "peugeot", "ford", "mazda", "nissan", "renault", "mercedes_benz", "opel", "seat", "citroen", "honda", "fiat", "mini", "smart", "hyundai", "sonstige_autos", "alfa_romeo", "subaru", "volvo", "mitsubishi", "kia", "suzuki", "lancia", "porsche", "toyota", "chevrolet", "dacia", "daihatsu", "trabant", "saab", "chrysler", "jaguar", "daewoo", "rover", "land_rover", "lada"]
+            },
+            "meta": {},
+            "expectation_type": "expect_column_distinct_values_to_be_in_set"
+        },
+        {
+            "kwargs": {
+            "column": "fuelType"
+            },
+            "meta": {},
+            "expectation_type": "expect_column_to_exist"
+        },
+        {
+            "kwargs": {
+            "column": "fuelType"
+            },
+            "meta": {},
+            "expectation_type": "expect_column_values_to_not_be_null"
+        },
+        {
+            "kwargs": {
+            "column": "fuelType",
+            "value_set": ["benzin", "diesel", "lpg", "andere", "hybrid", "cng", "elektro"]
+            },
+            "meta": {},
+            "expectation_type": "expect_column_distinct_values_to_be_in_set"
+        },
+        {
+            "kwargs": {
+            "column": "kilometer"
+            },
+            "meta": {},
+            "expectation_type": "expect_column_to_exist"
+        },
+        {
+            "kwargs": {
+            "column": "kilometer"
+            },
+            "meta": {},
+            "expectation_type": "expect_column_values_to_not_be_null"
+        },
+        {
+            "kwargs": {
+            "column": "kilometer",
+            "min_value": 0,
+            "max_value": 150000
+            },
+            "meta": {},
+            "expectation_type": "expect_column_max_to_be_between"
+        },
+        {
+            "kwargs": {
+            "column": "kilometer",
+            "min_value": 0,
+            "max_value": 150000
+            },
+            "meta": {},
+            "expectation_type": "expect_column_min_to_be_between"
+        },
+        {
+            "kwargs": {
+            "column": "kilometer",
+            "type_list": ["int", "float"]
+            },
+            "meta": {},
+            "expectation_type": "expect_column_values_to_be_in_type_list"
+        }
+    ],
+    "expectation_suite_name": "default"
+}

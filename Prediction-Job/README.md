@@ -25,7 +25,7 @@ airflow users create --username admin --firstname admin --lastname admin --role 
 ## Start airflow
 
 ```bash
-airflow webserver --port 7000 --workers 1 -D
+airflow webserver --port 3000 --workers 1 -D
 airflow scheduler -D
 ```
 

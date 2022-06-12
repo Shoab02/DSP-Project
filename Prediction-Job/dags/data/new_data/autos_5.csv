@@ -1,0 +1,10 @@
+powerPS;vehicleType;brand;fuelType;kilometer
+75;kleinwagen;renault;benzin;150000
+102;bus;mercedes_benz;benzin;150000
+136;kombi;opel;benzin;150000
+207;kombi;citroen;benzin;150000
+88;bus;volkswagen;diesel;150000
+140;kombi;ford;diesel;60000
+114;bus;renault;diesel;150000
+150;bus;toyota;diesel;30000
+140;bus;volkswagen;diesel;150000
