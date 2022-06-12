@@ -1,3 +1,5 @@
 apache-airflow==2.3.0
 great_expectations==0.15.6
 airflow-provider-great-expectations==0.1.4
+sendgrid==6.9.7
+python-dotenv==0.20.0
