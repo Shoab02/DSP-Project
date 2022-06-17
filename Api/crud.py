@@ -7,17 +7,11 @@ def create_cars_predictions_with_dataframe(
     db: Session,
     cars_predictions_df: pd.DataFrame
 ):
-    row_index = int(get_last_index(db))+1
+
     cars = []
 
-    end_col = cars_predictions_df.shape[0]
-    if cars_predictions_df.shape[0] ==1:
-        end_col = 2
-
-
-    for i in range(0,end_col-1):
+    for i in range(0,cars_predictions_df.shape[0]-1):
         cars.append(db_models.Car(
-            id=row_index,
             powerPS=int(cars_predictions_df.iloc[i]['powerPS']),
             vehicleType=cars_predictions_df.iloc[i]['vehicleType'],
             brand=cars_predictions_df.iloc[i]['brand'],
@@ -27,18 +21,29 @@ def create_cars_predictions_with_dataframe(
         )
         
         )
-        row_index=row_index+1
-        
 
     db.bulk_save_objects(cars)
     db.commit()
     
     return cars_predictions_df
 
+def create_cars_predictions_single(
+    db: Session,
+    cars_predictions_df: pd.DataFrame):
+    new_pred=db_models.Car(
+            powerPS=int(cars_predictions_df['powerPS'][0]),
+            vehicleType=cars_predictions_df['vehicleType'][0],
+            brand=cars_predictions_df['brand'][0],
+            fuelType=cars_predictions_df['fuelType'][0],
+            kilometer=float(cars_predictions_df['kilometer'][0]),
+            predictedPrice=float(cars_predictions_df['predictedPrice'][0])
+        )
+    db.add(new_pred)
+    db.commit()
+
+    return cars_predictions_df
+
+
 
 def get_car_predictions(db: Session):
     return db.query(db_models.Car).all()
-
-def get_last_index(db: Session):
-    index_ob = db.query(db_models.Car.id).order_by(db_models.Car.id.desc()).first()
-    return index_ob['id']

@@ -1,15 +1,19 @@
 from database import Base
+import datetime
+from sqlalchemy.sql import func
 from sqlalchemy import (
     String,
     Integer,
     Float,
-    Column,
+    Column, 
+    DateTime
 )
 
 
 class Car(Base):
     __tablename__ = 'car_predictions'
     id = Column(Integer, primary_key=True, index=True)
+    pred_time = Column(DateTime(timezone=True), default=func.now())
     powerPS = Column(Integer, default=0)
     vehicleType = Column(String(255))
     brand = Column(String(255))

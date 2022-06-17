@@ -90,11 +90,12 @@ def predict_signle(req: Car, db: Session = Depends(get_db)):
         )
     )
 
-    crud.create_cars_predictions_with_dataframe(db, f_df)
+    crud.create_cars_predictions_single(db, f_df)
 
     return {"status": 200,
             "message": "Successful",
             "results": f_df.values.tolist()}
+            
 
 
 # To retrieve all the stored predictions

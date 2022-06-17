@@ -10,6 +10,7 @@ engine = create_engine(
     os.environ.get(
         'POSTGRES_DATABASE_URL',
         'postgresql://postgres:postgres@localhost/car_preds'
+        #'postgresql://fxctytmq:PUG7kSDsnDlfhwyfdlej-vb9X0tuFfUe@surus.db.elephantsql.com/fxctytmq'
     ),
     echo=True
 )
