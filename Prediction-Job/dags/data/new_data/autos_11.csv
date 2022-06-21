@@ -1,0 +1,6 @@
+powerPS;vehicleType;brand;fuelType;kilometer
+0;limousine;volkswagen;benzin;150000
+218;limousine;bmw;benzin;20000
+122;limousine;mercedes_benz;diesel;150000
+0;;renault;diesel;150000
+55;;hyundai;;5000

@@ -95,7 +95,6 @@ def predict_signle(req: Car, db: Session = Depends(get_db)):
     return {"status": 200,
             "message": "Successful",
             "results": f_df.values.tolist()}
-            
 
 
 # To retrieve all the stored predictions

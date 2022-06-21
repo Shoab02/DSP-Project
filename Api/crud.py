@@ -1,4 +1,5 @@
 import pandas as pd
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
 import db_models
 
@@ -47,4 +48,8 @@ def create_cars_predictions_single(
 
 
 def get_car_predictions(db: Session):
-    return db.query(db_models.Car).all()
+    return db.query(
+        db_models.Car
+    ).order_by(
+        desc(db_models.Car.pred_time)
+    ).all()
