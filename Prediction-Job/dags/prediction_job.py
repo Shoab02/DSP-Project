@@ -12,7 +12,7 @@ from sendgrid.helpers.mail import (
     Email, Mail, Personalization, Content
 )
 from airflow import AirflowException
-from airflow.utils.dates import days_ago
+from pendulum import now
 from airflow.decorators import dag, task
 
 
@@ -26,8 +26,8 @@ DATA_FOLDER = os.path.join(DAGS_FOLDER, 'data')
 
 
 @dag(
-    schedule_interval="*/10 * * * *",
-    start_date=days_ago(1),
+    schedule_interval="*/2 * * * *",
+    start_date=now().add(minutes=-10),
     dag_id='prediction_job',
     dagrun_timeout=datetime.timedelta(minutes=60),
     default_args=default_args
@@ -95,7 +95,8 @@ dag = make_predictions()
 def send_file_to_api(f):
     logger = logging.getLogger("console")
     response = requests.post(
-        'https://epita-2022-dsp-api.herokuapp.com/predict',
+        # 'https://epita-2022-dsp-api.herokuapp.com/predict',
+        'http://localhost:8000/predict',
         files={'csv_file': open(f, 'rb')}
     )
     if response.status_code != 200:

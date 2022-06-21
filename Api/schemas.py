@@ -4,7 +4,7 @@ import datetime
 
 class Car(BaseModel):
     id: int
-    pred_time:datetime.datetime
+    pred_time: datetime.datetime
     powerPS: int
     vehicleType: str
     brand: str

@@ -1,11 +1,10 @@
 from database import Base
-import datetime
 from sqlalchemy.sql import func
 from sqlalchemy import (
     String,
     Integer,
     Float,
-    Column, 
+    Column,
     DateTime
 )
 

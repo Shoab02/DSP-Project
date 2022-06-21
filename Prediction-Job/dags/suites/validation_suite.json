@@ -23,16 +23,7 @@
             "kwargs": {
             "column": "powerPS",
             "min_value": 0,
-            "max_value": 20000
-            },
-            "meta": {},
-            "expectation_type": "expect_column_max_to_be_between"
-        },
-        {
-            "kwargs": {
-            "column": "powerPS",
-            "min_value": 0,
-            "max_value": 20000
+            "max_value": null
             },
             "meta": {},
             "expectation_type": "expect_column_min_to_be_between"
@@ -129,16 +120,7 @@
             "kwargs": {
             "column": "kilometer",
             "min_value": 0,
-            "max_value": 150000
-            },
-            "meta": {},
-            "expectation_type": "expect_column_max_to_be_between"
-        },
-        {
-            "kwargs": {
-            "column": "kilometer",
-            "min_value": 0,
-            "max_value": 150000
+            "max_value": null
             },
             "meta": {},
             "expectation_type": "expect_column_min_to_be_between"
